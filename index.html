@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WAQOOR — Product Blueprint</title>
+<meta name="description" content="WAQOOR is a multi-company, multi-shop commerce platform launching in Jordan. This is its product blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;900&family=Noto+Kufi+Arabic:wght@400;500;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ff8126;--surface:#ff8d3a;--ink:#111;--muted:#5c2a05;--accent:#de194b;--accent-ink:#fff;
+  --orange:#ff8126;--sky:#4db3ff;--lime:#c5f53d;--black:#161615;--paper:#f2f2f2;
+  --step-small:clamp(.8125rem,.79rem + .1vw,.875rem);
+  --step-body:clamp(1.0625rem,1rem + .25vw,1.1875rem);
+  --step-lead:clamp(1.25rem,1.1rem + .7vw,1.625rem);
+  --step-head:clamp(2.5rem,1.2rem + 5vw,5.5rem);
+  --m:clamp(16px,1.6vw,28px);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 var(--step-body)/1.5 Epilogue,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.dark :focus-visible,.on-dark :focus-visible{outline-color:#fff}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{font-weight:900;letter-spacing:-.04em;line-height:.92}
+section{position:relative}
+.wrap{padding-inline:var(--m)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--d,0) * 80ms)}
+.js .rv.in{opacity:1;transform:none}
+
+/* HERO */
+.hero{min-height:max(100svh,660px);background:var(--orange);display:grid;grid-template-rows:auto 1fr auto}
+.hero .top,.hero .bot{display:flex;justify-content:space-between;gap:24px;padding:var(--m)}
+.hero .top{align-items:flex-start}
+.hero .lead{max-width:36ch;font-size:var(--step-lead);font-weight:500;line-height:1.25;letter-spacing:-.01em}
+.btn{display:inline-block;margin-top:16px;background:var(--ink);color:var(--paper);padding:18px 28px;font:500 var(--step-body)/1 Epilogue,sans-serif;text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-3px);background:var(--accent)}
+.btn:active{transform:translateY(1px)}
+.links{display:flex;gap:24px;font-size:var(--step-small);font-weight:500;list-style:none;padding:0}
+.links a{text-decoration:none;display:inline-block;padding:4px 0;transition:transform .15s}
+.links a:hover{transform:translateX(4px);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.hero .mid{display:flex;align-items:center;padding-inline:var(--m)}
+.word{width:100%;height:auto;display:block;transform-origin:0 50%;will-change:transform}
+.word text{font-family:Epilogue,system-ui,sans-serif;font-weight:900;fill:currentColor}
+.hero .city{font-size:var(--step-small);font-weight:500;align-self:end}
+
+/* FEATURES */
+.features{background:var(--orange)}
+.features h2{font-size:clamp(1.75rem,2.2vw,2.25rem);padding:calc(var(--m)*3) var(--m) var(--m)}
+.band{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--m);align-items:center;min-height:20vh;padding:var(--m);color:var(--muted);background:var(--orange);transition:background .25s,color .25s}
+.band .txt{grid-column:1/11}
+.band p.s{font-size:clamp(30px,3.6vw,60px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.band .cons{max-height:0;opacity:0;overflow:hidden;font-size:17px;font-weight:500;transition:max-height .35s,opacity .3s,margin .3s;margin-top:0}
+.band.on{color:var(--ink)}
+.band.on .cons{max-height:4em;opacity:1;margin-top:10px}
+.band[data-c="lime"].on{background:var(--lime)}
+.band[data-c="sky"].on{background:var(--sky)}
+.band[data-c="paper"].on{background:var(--paper)}
+.band[data-c="red"].on{background:var(--accent);color:#fff}
+.band .sw-wrap{grid-column:11/13;justify-self:end;font-size:clamp(30px,3.6vw,60px)}
+.sw{display:block;position:relative;width:1.8em;height:1em;border-radius:1em;border:0;background:var(--ink);cursor:pointer;padding:0;transition:background .2s;min-width:56px;min-height:32px}
+.sw::before{content:"";position:absolute;inset:.1em auto .1em .1em;width:.8em;aspect-ratio:1;border-radius:50%;background:var(--orange);transition:transform .22s cubic-bezier(.3,1.4,.5,1),background .2s}
+.sw[aria-checked=true]::before{transform:translateX(.8em);background:var(--lime)}
+.sw:active::before{width:.95em}
+.band.on[data-c="red"] .sw{background:#fff}
+.band.on[data-c="red"] .sw::before{background:var(--accent)}
+
+/* ORDER STRIP */
+.strip{display:grid;grid-template-columns:repeat(4,1fr)}
+.fld{min-height:84svh;padding:var(--m);position:relative;display:flex;flex-direction:column}
+.fld:nth-child(1){background:var(--orange)}.fld:nth-child(2){background:var(--sky)}.fld:nth-child(3){background:var(--lime)}.fld:nth-child(4){background:var(--black);color:var(--paper)}
+.fld h2{font-size:clamp(1.75rem,2.2vw,2.25rem);position:absolute;top:var(--m);left:var(--m);max-width:12ch}
+.fld .cardw{margin-top:38%}
+.fld .clause{margin-top:auto;font-size:clamp(22px,2vw,32px);font-weight:900;letter-spacing:-.03em;line-height:1.05;max-width:14ch}
+.ord{width:260px;max-width:100%;background:#fff;color:#111;padding:16px;font-size:15px;line-height:1.35;transition:transform .15s}
+.fld:hover .ord{transform:translateY(-6px)}
+.ord b{display:block;font-size:19px;font-weight:900;letter-spacing:-.02em;margin-bottom:2px}
+.ord .m{color:#444;font-size:14px}
+.ord ul{list-style:none;padding:0;margin:10px 0 0}
+.ord li{padding:3px 0}
+.ord li::before{content:"";display:inline-block;width:.8em;height:.8em;margin-right:.55em;background:#ddd;vertical-align:-.05em}
+.ord li.d::before{background:var(--ink)}
+.ord .st{display:inline-block;margin-top:14px;padding:8px 14px;font-weight:500;font-size:14px;background:var(--lime)}
+
+/* MONEY */
+.money{display:flex;background:var(--sky)}
+.money>div{padding:calc(var(--m)*2) var(--m) calc(var(--m)*2.5);display:flex;flex-direction:column;gap:20px;min-height:70vh}
+.money .a{flex:4;background:var(--sky)}
+.money .b{flex:5;background:var(--lime)}
+.money .c{flex:4;background:var(--ink);color:var(--paper)}
+.money h2{font-size:clamp(1.75rem,2.6vw,2.75rem)}
+.money .flow{font-size:var(--step-lead);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-top:auto}
+.money p{max-width:34ch}
+.money .head{position:absolute;left:var(--m);top:var(--m)}
+.moneywrap{position:relative}
+.moneywrap>h2{position:absolute;z-index:1;top:var(--m);left:var(--m);font-size:clamp(1.75rem,2.2vw,2.25rem)}
+.money>div{padding-top:calc(var(--m)*4.2)}
+
+/* STATS */
+.stats{background:var(--orange);padding:var(--m);display:grid;grid-template-columns:repeat(12,1fr);gap:8px;min-height:120vh;align-items:start;position:relative}
+.stats h2{grid-column:7/13;grid-row:1;font-size:clamp(1.75rem,2.2vw,2.25rem);align-self:start;padding-top:0}
+.t{padding:28px;display:flex;flex-direction:column;justify-content:space-between}
+.t strong{font-size:clamp(56px,5.4vw,92px);font-weight:900;letter-spacing:-.04em;line-height:.9}
+.t span{font-size:17px;font-weight:500;max-width:26ch}
+.t1{grid-column:1/7;grid-row:1/4;height:70vh;background:var(--accent);color:var(--accent-ink)}
+.t2{grid-column:7/10;grid-row:2;margin-top:14vh;height:44vh;background:var(--black);color:var(--paper)}
+.t3{grid-column:10/13;grid-row:2;margin-top:26vh;height:34vh;background:var(--sky)}
+
+/* LIST */
+.list{background:var(--lime);padding:calc(var(--m)*3) var(--m) calc(var(--m)*4)}
+.list h2{font-size:clamp(1.75rem,2.2vw,2.25rem);margin-bottom:calc(var(--m)*2)}
+.list ol{list-style:none;padding:0}
+.list li{display:flex;justify-content:space-between;align-items:baseline;gap:24px;cursor:default;transition:color .15s}
+.list li strong{font-size:clamp(48px,10vw,150px);font-weight:900;letter-spacing:-.045em;line-height:.92;text-transform:lowercase}
+.list li span{font-size:18px;font-weight:500;font-variant-numeric:tabular-nums;max-width:30ch;text-align:right}
+.list li:hover{color:var(--accent)}
+
+/* FAQ */
+.faq{background:var(--sky);padding:calc(var(--m)*3) var(--m) calc(var(--m)*4);display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--m);align-items:start}
+.faq h2{grid-column:1/5;font-size:clamp(2rem,4vw,4rem);position:sticky;top:96px}
+.faq .acc{grid-column:5/13;display:grid;gap:8px}
+details{background:#7cc8ff;border-radius:0}
+details summary{list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:72px;padding:18px 24px;cursor:pointer;font-size:20px;font-weight:500;gap:16px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"";flex:none;width:16px;height:16px;background:
+  linear-gradient(currentColor,currentColor) center/100% 3px no-repeat,
+  linear-gradient(currentColor,currentColor) center/3px 100% no-repeat;transition:transform .2s}
+details[open]{background:var(--accent);color:var(--accent-ink)}
+details[open] summary::after{background:linear-gradient(currentColor,currentColor) center/100% 3px no-repeat}
+details .ans{padding:0 24px 24px;font-size:17px;max-width:52ch}
+details .ans ul{padding-left:1.1em;margin-top:8px}
+details .wide{max-width:none}
+details .rules{columns:2;column-gap:32px;font-size:15px;padding-left:0;list-style:none}
+details .rules li{break-inside:avoid;padding:3px 0}
+details summary:hover{background:rgba(0,0,0,.08)}
+
+/* CTA */
+.cta{display:block;text-decoration:none;background:var(--accent);color:var(--accent-ink);min-height:60svh;position:relative;padding:var(--m);overflow:hidden;transition:background .1s,color .1s}
+.cta:hover,.cta:focus-visible{background:var(--accent-ink);color:var(--accent)}
+.cta p{font-size:20px;font-weight:500;max-width:26ch;line-height:1.25}
+.cta svg.ar{position:absolute;right:var(--m);top:var(--m);width:48px;height:48px}
+.cta .w{position:absolute;left:var(--m);bottom:24px;font-size:clamp(100px,27vw,420px);font-weight:900;letter-spacing:-.06em;line-height:.8;display:block}
+
+/* FOOTER */
+.foot{background:var(--black);color:var(--paper);padding:calc(var(--m)*3) var(--m) var(--m)}
+.foot .inv{font-size:var(--step-lead);font-weight:500;max-width:24ch;margin-bottom:calc(var(--m)*2)}
+.foot .word{color:var(--paper)}
+.foot .row{display:flex;justify-content:space-between;gap:24px;margin-top:calc(var(--m)*1.5);font-size:var(--step-small);flex-wrap:wrap}
+.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
+
+.money ul{padding-left:1.1em;max-width:36ch;font-size:16px}
+.money li{padding:2px 0}
+.money .rec{display:inline-block;background:var(--ink);color:var(--paper);padding:9px 16px;font-size:14px;font-weight:500;align-self:flex-start}
+.tiles{background:var(--orange);padding:calc(var(--m)*3) var(--m) calc(var(--m)*4)}
+.tiles h2{font-size:clamp(2rem,4vw,4rem);margin-bottom:calc(var(--m)*1.5)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}
+.tile{padding:24px 24px 28px;min-height:220px;display:flex;flex-direction:column;gap:10px}
+.tile h3{font-size:24px;letter-spacing:-.03em;line-height:1.1}
+.tile p{font-size:16px;line-height:1.45;max-width:34ch}
+.tile:nth-child(4n+1){background:var(--sky)}.tile:nth-child(4n+2){background:var(--lime)}.tile:nth-child(4n+3){background:var(--paper)}.tile:nth-child(4n){background:var(--black);color:var(--paper)}
+.arch{background:var(--black);color:var(--paper);padding:calc(var(--m)*3) var(--m) calc(var(--m)*4)}
+.arch h2{font-size:clamp(2rem,4vw,4rem);margin-bottom:12px;max-width:16ch}
+.arch .lede{font-size:var(--step-lead);font-weight:500;max-width:44ch;margin-bottom:calc(var(--m)*1.5);line-height:1.3}
+.layers{display:grid;gap:8px}
+.layer{display:grid;grid-template-columns:200px 1fr;gap:8px}
+.layer>b{padding:20px;background:var(--lime);color:var(--ink);font-weight:900;letter-spacing:-.02em;font-size:20px;line-height:1.1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{flex:1 1 140px;padding:18px 16px;background:#2a2a28;font-weight:500;font-size:16px;line-height:1.3}
+.layer.api>b{background:var(--accent);color:#fff}
+.layer.api .chips span{background:#3a1a22}
+.layer.ex>b{background:var(--sky)}
+.arch .why{margin-top:calc(var(--m)*1.5);font-size:17px;max-width:60ch;line-height:1.5}
+.list.sky{background:var(--sky)}
+.list.sky li:hover{color:var(--accent-ink)}
+.list .note{margin-top:calc(var(--m)*1.5);font-size:var(--step-lead);font-weight:500;max-width:40ch;line-height:1.3}
+@media (max-width:900px){
+  .layer{grid-template-columns:1fr}
+  .layer>b{padding:14px 16px}
+  .strip{grid-template-columns:1fr}
+  .fld{min-height:64svh}
+  .fld .cardw{margin-top:96px}
+  .fld .clause{font-size:24px;position:absolute;top:var(--m);left:var(--m);margin:0;max-width:16ch}
+  .fld:first-child .clause{top:auto;position:static;margin-top:auto}
+  .fld:first-child h2{position:static;margin-bottom:12px;max-width:none}
+  .fld .cardw{margin-top:96px}
+  .fld:first-child .cardw{margin-top:20px}
+  .fld:first-child{padding-top:var(--m)}
+  .money{flex-direction:column}
+  .money>div{min-height:auto;padding-top:calc(var(--m)*2)}
+  .moneywrap>h2{position:static;padding:var(--m) var(--m) 0;background:var(--sky)}
+  .stats{display:flex;flex-wrap:wrap;min-height:0}
+  .stats h2{flex-basis:100%;order:-1;margin-bottom:12px}
+  .t1{flex-basis:100%;height:56vw;min-height:260px}
+  .t2,.t3{flex:1 1 calc(50% - 4px);margin:0;height:auto;min-height:220px}
+  .t3{margin-top:32px}
+  .t strong{font-size:15vw}.t2 strong,.t3 strong{font-size:11vw}
+  .list li{flex-direction:column;gap:6px;margin-bottom:22px}
+  .list li strong{font-size:min(15vw,60px)}
+  .list li span{text-align:left;font-size:15px}
+  .faq{display:block}
+  .faq h2{position:static;font-size:9vw;margin-bottom:20px}
+  .faq .acc{gap:6px}
+  details summary{font-size:18px;min-height:64px}
+  details .rules{columns:1}
+  .band{min-height:132px}
+  .band .txt{grid-column:1/10}
+  .band p.s{font-size:6.4vw}
+  .band .sw-wrap{grid-column:10/13;font-size:34px}
+  .band .cons{font-size:15px}
+  .hero .top{flex-direction:column;gap:16px}
+  .hero .mid{align-items:flex-start;padding-top:8svh}
+  .hero .bot{flex-direction:column;gap:12px}
+  .cta{min-height:46svh}
+  .cta .w{font-size:min(27vw,170px)}
+}
+
+/* LANGUAGE */
+.lang{font:500 var(--step-small)/1 Epilogue,'Noto Kufi Arabic',sans-serif;background:var(--ink);color:var(--paper);border:0;padding:10px 16px;cursor:pointer;transition:background .15s}
+.lang:hover{background:var(--accent)}
+html[dir=rtl] body{font-family:'Noto Kufi Arabic',Epilogue,system-ui,sans-serif;line-height:1.7}
+html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] h3,html[dir=rtl] .band p.s,html[dir=rtl] .t strong,html[dir=rtl] .list li strong,html[dir=rtl] .money .flow,html[dir=rtl] .fld .clause,html[dir=rtl] .ord b,html[dir=rtl] .layer>b{letter-spacing:0;line-height:1.25}
+html[dir=rtl] .band p.s{font-weight:700}
+html[dir=rtl] .list li strong{line-height:1.3}
+html[dir=rtl] .word,html[dir=rtl] .cta .w{direction:ltr}
+html[dir=rtl] .word{transform-origin:100% 50%}
+html[dir=rtl] .fld h2,html[dir=rtl] .moneywrap>h2{left:auto;right:var(--m)}
+html[dir=rtl] .fld .clause{text-align:start}
+html[dir=rtl] .cta svg.ar{right:auto;left:var(--m);transform:scaleX(-1)}
+html[dir=rtl] .cta .w{left:auto;right:var(--m)}
+html[dir=rtl] .band .sw-wrap{justify-self:start}
+html[dir=rtl] .sw::before{inset:.1em .1em .1em auto}
+html[dir=rtl] .sw[aria-checked=true]::before{transform:translateX(-.8em)}
+html[dir=rtl] .ord li::before{margin-right:0;margin-left:.55em}
+html[dir=rtl] .list li span{text-align:left}
+html[dir=rtl] .links a:hover{transform:translateX(-4px)}
+html[dir=rtl] details .ans ul,html[dir=rtl] .money ul{padding-left:0;padding-right:1.1em}
+html[dir=rtl] .tile h3{letter-spacing:0}
+@media (max-width:900px){html[dir=rtl] .fld .clause{left:auto;right:var(--m)}html[dir=rtl] .list li span{text-align:right}}
+@media (prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .word{transform:none!important}
+  *{scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="hero" id="top">
+  <div class="top">
+    <div class="rv">
+      <p class="lead">A commerce platform where one company runs many shops, in one place.</p>
+      <a class="btn" href="#features">Read the blueprint</a>
+    </div>
+    <ul class="links rv" style="--d:1" aria-label="Sections">
+      <li><a href="#money">Money</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="#decisions">Decisions</a></li><li><button type="button" id="lang" class="lang" lang="ar" aria-label="Switch language to Arabic">العربية</button></li>
+    </ul>
+  </div>
+  <div class="mid">
+    <h1 style="width:100%">
+      <svg class="word" id="word" viewBox="0 0 1000 188" role="img" aria-label="WAQOOR, a multi-shop commerce platform"><text x="-6" y="180" font-size="250" textLength="1012" lengthAdjust="spacingAndGlyphs">WAQOOR</text></svg>
+    </h1>
+  </div>
+  <div class="bot">
+    <p class="city">Amman, Jordan first. The world next.</p>
+    <ul class="links" aria-label="More">
+      <li><a href="#rules">33 rules</a></li><li><a href="#decisions">What is still open</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="features" id="features" aria-labelledby="f-h">
+  <h2 id="f-h" class="rv">What it does. Flip any of it.</h2>
+  <div class="band on" data-c="lime"><div class="txt"><p class="s">One company runs many shops.</p><p class="cons">Fashion, electronics, furniture, beauty: one owner, one subscription, separate brands.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="true" aria-label="One company runs many shops"></button></div></div>
+  <div class="band" data-c="sky"><div class="txt"><p class="s">Every shop gets its own address.</p><p class="cons">waqoor.com/abc-group/fashion. No subdomains, nothing to set up.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Every shop gets its own address"></button></div></div>
+  <div class="band" data-c="paper"><div class="txt"><p class="s">One product, priced per shop.</p><p class="cons">Edit it once. Each shop keeps its own price, status and marketplace visibility.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="One product priced per shop"></button></div></div>
+  <div class="band on" data-c="red"><div class="txt"><p class="s">Customers pay online or in cash.</p><p class="cons">Cash on delivery is in. The courier collects, then remits.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="true" aria-label="Customers pay online or in cash"></button></div></div>
+  <div class="band" data-c="lime"><div class="txt"><p class="s">Stock never sells twice.</p><p class="cons">Every order reserves stock first, from the web and from the till.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Stock never sells twice"></button></div></div>
+  <div class="band" data-c="sky"><div class="txt"><p class="s">The ads write themselves.</p><p class="cons">Headlines, images and short videos from the product data, in Arabic and English.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="The ads write themselves"></button></div></div>
+</section>
+
+<section class="strip" aria-label="Follow one order" id="order">
+  <div class="fld"><h2>Follow one order.</h2><div class="cardw"><div class="ord" data-ui><b>Order 1042</b><span class="m">ABC Group · Fashion</span><ul><li>2 items, JOD 36.00</li><li>Pay: cash on delivery</li></ul><span class="st">Waiting for the shop</span></div></div><p class="clause">First it lands here.</p></div>
+  <div class="fld"><div class="cardw"><div class="ord" data-ui><b>Order 1042</b><span class="m">ABC Group · Fashion</span><ul><li class="d">Owner: Order Manager</li><li class="d">Stock reserved</li><li>Packed</li></ul><span class="st">Processing</span></div></div><p class="clause">Then someone takes it.</p></div>
+  <div class="fld"><div class="cardw"><div class="ord" data-ui><b>Order 1042</b><span class="m">ABC Group · Fashion</span><ul><li class="d">Packed</li><li class="d">Courier booked</li><li>Delivered</li></ul><span class="st">Shipped, tracking on</span></div></div><p class="clause">Then it moves.</p></div>
+  <div class="fld"><div class="cardw"><div class="ord" data-ui><b>Order 1042</b><span class="m">ABC Group · Fashion</span><ul><li class="d">Delivered</li><li class="d">Cash collected, JOD 36.00</li><li class="d">Settlement after returns window</li></ul><span class="st">Completed</span></div></div><p class="clause">Then the cash comes home.</p></div>
+</section>
+
+<div class="moneywrap" id="money">
+  <h2>Three ways money moves.</h2>
+  <section class="money" aria-label="Payment models">
+    <div class="a rv"><h3 class="vh">Direct</h3><p class="flow">Customer pays WAQOOR.</p><p>Subscriptions, plans and extra services. WAQOOR keeps it as its own revenue.</p></div>
+    <div class="b rv" style="--d:1"><h3 class="vh">Marketplace</h3><p class="flow">Customer pays WAQOOR, the ledger splits it, the merchant is settled.</p><p>Commission, fees, refunds and adjustments come off first. Merchant money is never mixed with WAQOOR revenue.</p></div>
+    <div class="c rv on-dark" style="--d:2"><h3 class="vh">Cash on delivery</h3><p class="flow">Customer pays the courier, the courier remits, the ledger settles.</p><p>Same commission and fees. Money counts only after the cash is confirmed collected.</p></div>
+  </section>
+</div>
+
+<div class="moneywrap" id="pricing">
+  <h2>Subscription or percentage?</h2>
+  <section class="money" aria-label="Pricing models">
+    <div class="a rv"><h3 class="vh">Subscription only</h3><p class="flow">Subscription only.</p><ul><li>Predictable income</li><li>Small sellers pay even with no sales</li></ul></div>
+    <div class="b rv" style="--d:1"><h3 class="vh">Both, split by channel</h3><span class="rec">Decided</span><p class="flow">Plan per company, commission on marketplace sales.</p><ul><li>The plan covers shops and tools</li><li>Marketplace orders carry a commission</li><li>Storefront orders pay a low flat fee</li><li>Ads are sold separately</li></ul></div>
+    <div class="c rv on-dark" style="--d:2"><h3 class="vh">Percentage only</h3><p class="flow">Percentage only.</p><ul><li>Free to start, grows with sales</li><li>Sellers may pull buyers off the platform</li></ul></div>
+  </section>
+</div>
+
+<div class="moneywrap" id="shipping">
+  <h2>The shipping plan.</h2>
+  <section class="money" aria-label="Shipping plan">
+    <div class="a rv"><h3 class="vh">Before the box leaves</h3><p class="flow">Before the box leaves.</p><ul><li>Approved providers, one default per country</li><li>Rates by zone, weight and order value</li><li>Free-shipping thresholds</li><li>Jordan addresses with a map pin</li></ul></div>
+    <div class="b rv" style="--d:1"><h3 class="vh">On the road</h3><p class="flow">On the road, one shipment per shop order.</p><ul><li>Label and tracking number</li><li>Status updates reach the order and the buyer</li><li>Provider scorecard: on time, failed, damaged</li><li>COD cash recorded per shipment</li></ul></div>
+    <div class="c rv on-dark" style="--d:2"><h3 class="vh">When it comes back</h3><p class="flow">When it comes back.</p><ul><li>Return pickup and refused deliveries</li><li>COD remittance reconciled</li><li>One adapter for every courier, plus a manual fallback</li></ul></div>
+  </section>
+</div>
+
+<section class="features" id="growth" aria-labelledby="g-h">
+  <h2 id="g-h" class="rv">What makes it sell. Flip any of it.</h2>
+  <div class="band on" data-c="sky"><div class="txt"><p class="s">Buyers see what goes together.</p><p class="cons">Bought-together and similar items from real orders. Rules first, learning later.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="true" aria-label="Buyers see what goes together"></button></div></div>
+  <div class="band" data-c="lime"><div class="txt"><p class="s">Vendors advertise inside WAQOOR.</p><p class="cons">Sponsored products, featured shops and banners, always labeled.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Vendors advertise inside WAQOOR"></button></div></div>
+  <div class="band" data-c="paper"><div class="txt"><p class="s">Ranking weighs promotion and payment.</p><p class="cons">Paid boosts count, quality still decides, sponsored slots are capped.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Ranking weighs promotion and payment"></button></div></div>
+  <div class="band" data-c="sky"><div class="txt"><p class="s">Search by distance and quality.</p><p class="cons">Filter by distance, rating, price, brand, delivery time and stock.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Search by distance and quality"></button></div></div>
+  <div class="band on" data-c="red"><div class="txt"><p class="s">A chat that does the shopping.</p><p class="cons">Finds items, fills the cart, and asks before it pays.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="true" aria-label="A chat that does the shopping"></button></div></div>
+  <div class="band" data-c="lime"><div class="txt"><p class="s">Everyone is told on time.</p><p class="cons">In-app, email, SMS, push and WhatsApp, in the user's language.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Everyone is told on time"></button></div></div>
+  <div class="band" data-c="paper"><div class="txt"><p class="s">Every vendor sets their own roles.</p><p class="cons">Custom roles per shop, branch and till, with an audit log and 2FA.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Every vendor sets their own roles"></button></div></div>
+  <div class="band" data-c="sky"><div class="txt"><p class="s">Everyone sees their own numbers.</p><p class="cons">Reports for the platform, each vendor and each buyer. Tracking only with consent.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="Everyone sees their own numbers"></button></div></div>
+  <div class="band" data-c="lime"><div class="txt"><p class="s">The ad maker posts the ads too.</p><p class="cons">Meta, TikTok and Google Ads, with approval and a spend cap.</p></div><div class="sw-wrap"><button class="sw" role="switch" aria-checked="false" aria-label="The ad maker posts the ads too"></button></div></div>
+</section>
+
+<section class="list sky" id="languages" aria-labelledby="l-h">
+  <h2 id="l-h">Two languages.</h2>
+  <ol>
+    <li class="rv"><strong>English</strong><span>Left to right</span></li>
+    <li class="rv"><strong>العربية</strong><span>Right to left</span></li>
+  </ol>
+  <p class="note">Arabic and English only, both first-class. Everything is translatable from day one. AI ads, chat replies and notifications are written in both, and AI drafts the product translations for vendors to approve.</p>
+</section>
+
+<section class="stats" aria-label="The blueprint in numbers">
+  <h2 class="rv">The blueprint in numbers.</h2>
+  <div class="t t1 rv"><strong>33</strong><span>business rules agreed so far, from shop URLs to who may publish.</span></div>
+  <div class="t t2 rv" style="--d:1"><strong>10</strong><span>specialised AI agents, including a shopping assistant, behind one orchestrator.</span></div>
+  <div class="t t3 rv" style="--d:2"><strong>8</strong><span>build phases, from setup to Jordan launch.</span></div>
+</section>
+
+<section class="tiles" id="stack" aria-labelledby="s-h">
+  <h2 id="s-h" class="rv">The tech stack.</h2>
+  <div class="tgrid">
+    <div class="tile rv"><h3>One monorepo</h3><p>Next.js apps and the FastAPI backend in one repo, one CI. The TypeScript client is generated from the API schema.</p></div>
+    <div class="tile rv" style="--d:1"><h3>Next.js storefronts</h3><p>Server-rendered for search engines. Routes like /abc-group/fashion.</p></div>
+    <div class="tile rv" style="--d:2"><h3>Next.js admin and POS</h3><p>Every frontend is Next.js. POS is an installable web app; printers and scanners connect through the browser.</p></div>
+    <div class="tile rv"><h3>FastAPI API</h3><p>One modular backend, one package per domain, async REST and OpenAPI. Background jobs on Celery.</p></div>
+    <div class="tile rv" style="--d:1"><h3>PostgreSQL</h3><p>Row-level security per company. Stock locks in the database. PostGIS for distance.</p></div>
+    <div class="tile rv" style="--d:2"><h3>Search</h3><p>PostgreSQL full-text search with trigram matching and Arabic normalization. No extra engine at launch.</p></div>
+    <div class="tile rv"><h3>AI gateway</h3><p>Claude behind a model-neutral layer. Agents call the same API as everyone else.</p></div>
+    <div class="tile rv" style="--d:1"><h3>Adapters</h3><p>Payments and couriers plug in through interfaces. Jordan providers chosen after talks.</p></div>
+    <div class="tile rv" style="--d:2"><h3>Infrastructure</h3><p>Docker Compose, NGINX as the only reverse proxy, GitHub Actions and Sentry. A cloud region near Jordan.</p></div>
+  </div>
+</section>
+
+<section class="arch" id="architecture" aria-labelledby="a-h">
+  <h2 id="a-h" class="rv">Start as one. Split later.</h2>
+  <p class="lede rv">A monorepo and a modular monolith first. Microservices only where the load or the team asks for them.</p>
+  <div class="layers">
+    <div class="layer rv"><b>Clients</b><div class="chips"><span>Storefront and marketplace</span><span>Admin dashboard</span><span>POS web app</span><span>Mobile app, later</span></div></div>
+    <div class="layer api rv"><b>One API, many modules</b><div class="chips"><span>Company and shop</span><span>Catalog</span><span>Inventory</span><span>Orders</span><span>Payments and ledger</span><span>Shipping</span><span>Subscriptions</span><span>Ads</span><span>Notifications</span><span>Search</span><span>Analytics</span><span>AI gateway</span></div></div>
+    <div class="layer rv"><b>Workers</b><div class="chips"><span>Celery, same code, separate process: jobs, webhooks, emails, AI tasks</span></div></div>
+    <div class="layer rv"><b>Data</b><div class="chips"><span>PostgreSQL</span><span>Search (PostgreSQL)</span><span>File storage and CDN</span></div></div>
+    <div class="layer ex rv"><b>Split out first, when needed</b><div class="chips"><span>Payments and ledger</span><span>Search</span><span>Notifications</span><span>AI gateway</span><span>Media processing</span></div></div>
+  </div>
+  <p class="why rv">Checkout, stock reservation and the ledger need strict transactions. Splitting them across services on day one would cost months of plumbing for no gain. Modules talk through interfaces and events, never each other's tables. Every row carries a company id. Money moves only through the ledger.</p>
+</section>
+
+<section class="list" id="roadmap" aria-labelledby="r-h">
+  <h2 id="r-h">The plan, in eight steps.</h2>
+  <ol>
+    <li class="rv"><strong>Setup</strong><span>Decisions, repo, CI, schema</span></li>
+    <li class="rv"><strong>Foundation</strong><span>Auth, tenancy, shops, roles, languages</span></li>
+    <li class="rv"><strong>Commerce</strong><span>Catalog, storefront, checkout, COD</span></li>
+    <li class="rv"><strong>Operations</strong><span>Inventory, shipping, POS</span></li>
+    <li class="rv"><strong>Finance</strong><span>Ledger, settlement, billing</span></li>
+    <li class="rv"><strong>Growth</strong><span>Search, ads, notifications, analytics</span></li>
+    <li class="rv"><strong>Intelligence</strong><span>Agents, chat, ad maker</span></li>
+    <li class="rv"><strong>Launch</strong><span>Hardening, Jordan go-live</span></li>
+  </ol>
+  <p class="note">The first sellable version arrives after the first four steps.</p>
+</section>
+
+<section class="faq" id="decisions" aria-labelledby="d-h">
+  <h2 id="d-h">Decided, and still open.</h2>
+  <div class="acc">
+    <details name="faq" open><summary>Who pays for a subscription?</summary><div class="ans"><p><b>Decided: the company.</b> One subscription per company. The plan sets how many shops it can publish. Creating a company stays free.</p></div></details>
+    <details name="faq"><summary>Is a product copied for every shop?</summary><div class="ans"><p><b>Decided: no, it is shared.</b> A product is defined once per company. Each shop has its own listing with its own price, status and marketplace visibility.</p></div></details>
+    <details name="faq"><summary>Subscription or percentage?</summary><div class="ans"><p><b>Decided: both.</b> A plan per company, a commission on marketplace orders, a low flat fee on storefront orders, and ads sold separately. The numbers are still open.</p></div></details>
+    <details name="faq"><summary>Which stack?</summary><div class="ans"><p><b>Decided: FastAPI and Next.js.</b> FastAPI runs the API and background jobs (Celery). Next.js runs every frontend: storefronts, admin and POS. The API schema generates the frontend client so the two stay in sync.</p></div></details>
+    <details name="faq"><summary>Is cash on delivery supported?</summary><div class="ans"><p><b>Yes.</b> For storefront and marketplace orders. New order states: awaiting delivery, cash collected, delivery failed or refused.</p><ul><li>Who receives the cash from the courier: open</li><li>Remittance timing and failed-delivery fees: open</li><li>Order limits and phone confirmation: to confirm</li></ul></div></details>
+    <details name="faq"><summary>What address does a shop get?</summary><div class="ans"><p>waqoor.com/company-name/shop-name, for example waqoor.com/abc-group/fashion. Every shop stays under the main domain.</p></div></details>
+    <details name="faq"><summary>What is not included yet?</summary><div class="ans"><ul><li>B2B and wholesale</li><li>Offline POS</li></ul><p style="margin-top:8px">Social and ad-platform publishing is now in, with approval and a spend cap.</p></div></details>
+    <details name="faq"><summary>What still needs a decision?</summary><div class="ans"><ul><li>Plan names, prices, shop limits and commission percentages</li><li>Order fee and marketplace commission</li><li>Settlement schedule, returns policy, payout methods</li><li>Database schema, tenant isolation</li><li>Payment provider and shipping integrations for Jordan</li><li>AI providers and how much the agents may do alone</li></ul></div></details>
+    <details name="faq" id="rules"><summary>All 33 business rules</summary><div class="ans wide"><ul class="rules">
+      <li>A company may own multiple shops.</li><li>Shops can sit in different categories.</li><li>Shops inherit company branding or use their own.</li><li>All shop URLs stay under the WAQOOR domain.</li><li>Creating a company is free.</li><li>Publishing a shop needs a paid plan.</li><li>Revenue is subscriptions plus order fees.</li><li>Marketplace and storefronts coexist.</li><li>Marketplace visibility is configurable.</li><li>Guest checkout is supported.</li><li>B2B is out of scope.</li><li>Inventory is shared or independent.</li><li>POS is a core module.</li><li>POS needs an internet connection.</li><li>Shipping providers must be approved.</li><li>Each country can have a default provider.</li><li>Companies can change their shipping setup.</li><li>COD is supported for online orders.</li><li>Subscriptions are paid to WAQOOR directly.</li><li>Marketplace payments are collected centrally.</li><li>Settlements respect returns and refunds.</li><li>Countries are fully configurable.</li><li>Jordan launches first.</li><li>The AI Ad Creator makes creatives.</li><li>Social and ad-platform publishing needs approval.</li><li>AI agents use authorised services only.</li><li>Subscriptions are per company.</li><li>Products are shared, listed per shop.</li><li>Arabic and English only.</li><li>Paid placement is always labeled Sponsored.</li><li>AI never pays without the user confirming.</li><li>Ad campaigns need a spend cap.</li><li>Tracking needs the user's consent.</li>
+    </ul></div></details>
+  </div>
+</section>
+
+<a class="cta" href="WAQOOR_PRD.md" aria-label="Open the full written blueprint">
+  <p>Next: pick the stack and draw the database. Full document inside.</p>
+  <svg class="ar" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38 38 10M16 10h22v22" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square"/></svg>
+  <span class="w">Build</span>
+</a>
+
+<footer class="foot">
+  <p class="inv">Jordan first. Built to open any country by configuration, not by rewriting.</p>
+  <svg class="word" id="word2" viewBox="0 0 1000 188" role="img" aria-label="WAQOOR"><text x="-6" y="180" font-size="250" textLength="1012" lengthAdjust="spacingAndGlyphs">WAQOOR</text></svg>
+  <div class="row"><span>Product Blueprint, version 1.3</span><span><a href="#top">Back to the top</a></span></div>
+</footer>
+
+<script>
+(function(){
+  // switches
+  document.querySelectorAll('.band').forEach(function(b){
+    var s=b.querySelector('.sw');
+    function set(on){b.classList.toggle('on',on);s.setAttribute('aria-checked',on)}
+    s.addEventListener('click',function(){set(s.getAttribute('aria-checked')!=='true')});
+    b.addEventListener('click',function(e){if(e.target.closest('.sw'))return});
+  });
+  // reveal
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    rv.forEach(function(el){io.observe(el)});
+  } else rv.forEach(function(el){el.classList.add('in')});
+  // wordmark scale
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    var w1=document.getElementById('word'),w2=document.getElementById('word2');
+    function tick(){
+      var h=innerHeight,y=scrollY;
+      w1.style.transform='scale('+(1-.06*Math.min(y/h,1))+')';
+      var r=w2.getBoundingClientRect(),p=Math.min(Math.max(1-(r.top-h*.4)/(h*.6),0),1);
+      w2.style.transform='scale('+(.94+.06*p)+')';
+    }
+    addEventListener('scroll',function(){requestAnimationFrame(tick)},{passive:true});tick();
+  }
+})();
+</script>
+<script>
+(function(){
+var AR={
+"A commerce platform where one company runs many shops, in one place.":"منصة تجارة تدير فيها شركة واحدة عدة متاجر في مكان واحد.",
+"Read the blueprint":"اقرأ المخطط",
+"Money":"المال","Roadmap":"خارطة الطريق","Decisions":"القرارات",
+"Amman, Jordan first. The world next.":"عمّان، الأردن أولاً. ثم العالم.",
+"33 rules":"٣٣ قاعدة","What is still open":"ما زال مفتوحاً",
+"What it does. Flip any of it.":"ماذا تفعل. جرّب أي ميزة.",
+"One company runs many shops.":"شركة واحدة تدير عدة متاجر.",
+"Fashion, electronics, furniture, beauty: one owner, one subscription, separate brands.":"أزياء، إلكترونيات، أثاث، تجميل: مالك واحد واشتراك واحد وعلامات منفصلة.",
+"Every shop gets its own address.":"كل متجر له عنوانه الخاص.",
+"waqoor.com/abc-group/fashion. No subdomains, nothing to set up.":"waqoor.com/abc-group/fashion. بلا نطاقات فرعية وبلا إعداد.",
+"One product, priced per shop.":"منتج واحد، وسعر لكل متجر.",
+"Edit it once. Each shop keeps its own price, status and marketplace visibility.":"عدّله مرة واحدة. ولكل متجر سعره وحالته وظهوره في السوق.",
+"Customers pay online or in cash.":"الدفع أونلاين أو نقداً.",
+"Cash on delivery is in. The courier collects, then remits.":"الدفع عند الاستلام مدعوم. المندوب يحصّل ثم يورّد.",
+"Stock never sells twice.":"المخزون لا يُباع مرتين.",
+"Every order reserves stock first, from the web and from the till.":"كل طلب يحجز المخزون أولاً، من الموقع ومن نقطة البيع.",
+"The ads write themselves.":"الإعلانات تُكتب وحدها.",
+"Headlines, images and short videos from the product data, in Arabic and English.":"عناوين وصور وفيديوهات قصيرة من بيانات المنتج، بالعربية والإنجليزية.",
+"Follow one order.":"تتبّع طلباً واحداً.",
+"Order 1042":"طلب 1042","ABC Group · Fashion":"مجموعة ABC · أزياء",
+"2 items, JOD 36.00":"قطعتان، 36.00 د.أ","Pay: cash on delivery":"الدفع: عند الاستلام",
+"Waiting for the shop":"بانتظار المتجر","First it lands here.":"أولاً يصل إلى هنا.",
+"Owner: Order Manager":"المسؤول: مدير الطلبات","Stock reserved":"تم حجز المخزون","Packed":"تم التغليف","Processing":"قيد المعالجة","Then someone takes it.":"ثم يتولاه أحد.",
+"Courier booked":"تم حجز المندوب","Delivered":"تم التسليم","Shipped, tracking on":"تم الشحن والتتبع يعمل","Then it moves.":"ثم يتحرك.",
+"Cash collected, JOD 36.00":"تم تحصيل 36.00 د.أ","Settlement after returns window":"التسوية بعد فترة الإرجاع","Completed":"مكتمل","Then the cash comes home.":"ثم يعود المال.",
+"Three ways money moves.":"ثلاث طرق لحركة المال.",
+"Direct":"مباشر","Customer pays WAQOOR.":"العميل يدفع لـ WAQOOR.","Subscriptions, plans and extra services. WAQOOR keeps it as its own revenue.":"الاشتراكات والباقات والخدمات الإضافية. تبقى إيراداً لـ WAQOOR.",
+"Marketplace":"السوق","Customer pays WAQOOR, the ledger splits it, the merchant is settled.":"العميل يدفع لـ WAQOOR، ويقسّمه دفتر الحسابات، ثم تُسوّى مستحقات التاجر.",
+"Commission, fees, refunds and adjustments come off first. Merchant money is never mixed with WAQOOR revenue.":"تُخصم العمولة والرسوم والمرتجعات والتعديلات أولاً. ولا يختلط مال التاجر بإيراد WAQOOR أبداً.",
+"Cash on delivery":"الدفع عند الاستلام","Customer pays the courier, the courier remits, the ledger settles.":"العميل يدفع للمندوب، والمندوب يورّد، والدفتر يسوّي.",
+"Same commission and fees. Money counts only after the cash is confirmed collected.":"نفس العمولة والرسوم. لا يُحتسب المال إلا بعد تأكيد التحصيل.",
+"Subscription or percentage?":"اشتراك أم نسبة؟",
+"Subscription only":"اشتراك فقط","Subscription only.":"اشتراك فقط.","Predictable income":"دخل متوقع","Small sellers pay even with no sales":"البائع الصغير يدفع حتى بلا مبيعات",
+"Both, split by channel":"الاثنان، حسب القناة","Decided":"تم القرار","Plan per company, commission on marketplace sales.":"باقة لكل شركة، وعمولة على مبيعات السوق.",
+"The plan covers shops and tools":"الباقة تغطي المتاجر والأدوات","Marketplace orders carry a commission":"طلبات السوق عليها عمولة","Storefront orders pay a low flat fee":"طلبات المتجر عليها رسم ثابت منخفض","Ads are sold separately":"الإعلانات تُباع على حدة",
+"Percentage only":"نسبة فقط","Percentage only.":"نسبة فقط.","Free to start, grows with sales":"البدء مجاني ويكبر مع المبيعات","Sellers may pull buyers off the platform":"قد يسحب البائعون المشترين خارج المنصة",
+"The shipping plan.":"خطة الشحن.","Before the box leaves":"قبل خروج الشحنة","Before the box leaves.":"قبل خروج الشحنة.",
+"Approved providers, one default per country":"مزودون معتمدون، ومزود افتراضي لكل دولة","Rates by zone, weight and order value":"أسعار حسب المنطقة والوزن وقيمة الطلب","Free-shipping thresholds":"حدود الشحن المجاني","Jordan addresses with a map pin":"عناوين الأردن مع دبوس على الخريطة",
+"On the road":"في الطريق","On the road, one shipment per shop order.":"في الطريق، شحنة لكل طلب متجر.",
+"Label and tracking number":"ملصق ورقم تتبع","Status updates reach the order and the buyer":"تحديثات الحالة تصل للطلب والمشتري","Provider scorecard: on time, failed, damaged":"تقييم المزود: في الموعد، فاشل، تالف","COD cash recorded per shipment":"تسجيل نقد الاستلام لكل شحنة",
+"When it comes back":"عندما يعود","When it comes back.":"عندما يعود.",
+"Return pickup and refused deliveries":"استلام المرتجعات والتسليمات المرفوضة","COD remittance reconciled":"مطابقة توريد الدفع عند الاستلام","One adapter for every courier, plus a manual fallback":"محوّل واحد لكل شركة شحن، مع بديل يدوي",
+"What makes it sell. Flip any of it.":"ما الذي يرفع المبيعات. جرّب أي ميزة.",
+"Buyers see what goes together.":"المشتري يرى ما يُشترى معاً.","Bought-together and similar items from real orders. Rules first, learning later.":"منتجات تُشترى معاً ومشابهة من الطلبات الفعلية. قواعد أولاً، ثم تعلّم لاحقاً.",
+"Vendors advertise inside WAQOOR.":"التجار يعلنون داخل WAQOOR.","Sponsored products, featured shops and banners, always labeled.":"منتجات ممولة ومتاجر مميزة وبانرات، دائماً بعلامة واضحة.",
+"Ranking weighs promotion and payment.":"الترتيب يراعي الترويج والدفع.","Paid boosts count, quality still decides, sponsored slots are capped.":"التعزيز المدفوع محسوب، والجودة تحسم، والمواقع الممولة محدودة.",
+"Search by distance and quality.":"بحث حسب المسافة والجودة.","Filter by distance, rating, price, brand, delivery time and stock.":"فلترة حسب المسافة والتقييم والسعر والعلامة ووقت التوصيل والمخزون.",
+"A chat that does the shopping.":"محادثة تتسوّق عنك.","Finds items, fills the cart, and asks before it pays.":"تجد المنتجات وتملأ السلة وتسأل قبل الدفع.",
+"Everyone is told on time.":"الجميع يُبلَّغ في وقته.","In-app, email, SMS, push and WhatsApp, in the user's language.":"داخل التطبيق وبريد وSMS وإشعارات وواتساب، بلغة المستخدم.",
+"Every vendor sets their own roles.":"كل تاجر يحدد أدواره.","Custom roles per shop, branch and till, with an audit log and 2FA.":"أدوار مخصصة لكل متجر وفرع وصندوق، مع سجل تدقيق ومصادقة ثنائية.",
+"Everyone sees their own numbers.":"كل شخص يرى أرقامه.","Reports for the platform, each vendor and each buyer. Tracking only with consent.":"تقارير للمنصة ولكل تاجر ولكل مشترٍ. التتبع بموافقة فقط.",
+"The ad maker posts the ads too.":"صانع الإعلانات ينشرها أيضاً.","Meta, TikTok and Google Ads, with approval and a spend cap.":"Meta وTikTok وGoogle Ads، بموافقة وسقف إنفاق.",
+"Two languages.":"لغتان.","Left to right":"من اليسار إلى اليمين","Right to left":"من اليمين إلى اليسار",
+"Arabic and English only, both first-class. Everything is translatable from day one. AI ads, chat replies and notifications are written in both, and AI drafts the product translations for vendors to approve.":"العربية والإنجليزية فقط، وكلتاهما أساسية. كل شيء قابل للترجمة من اليوم الأول. إعلانات الذكاء الاصطناعي وردود المحادثة والإشعارات تُكتب باللغتين، ويصيغ الذكاء الاصطناعي ترجمات المنتجات لاعتماد التاجر.",
+"The blueprint in numbers.":"المخطط بالأرقام.",
+"business rules agreed so far, from shop URLs to who may publish.":"قاعدة عمل متفق عليها حتى الآن، من روابط المتاجر إلى من يحق له النشر.",
+"specialised AI agents, including a shopping assistant, behind one orchestrator.":"وكلاء ذكاء اصطناعي متخصصين، منهم مساعد تسوّق، خلف منسّق واحد.",
+"build phases, from setup to Jordan launch.":"مراحل بناء، من الإعداد إلى الإطلاق في الأردن.",
+"The tech stack.":"التقنيات.",
+"One monorepo":"مستودع واحد","Next.js apps and the FastAPI backend in one repo, one CI. The TypeScript client is generated from the API schema.":"تطبيقات Next.js وخلفية FastAPI في مستودع واحد وCI واحد. وعميل TypeScript يُولَّد من مخطط الـ API.",
+"Next.js storefronts":"واجهات متاجر Next.js","Server-rendered for search engines. Routes like /abc-group/fashion.":"تُصيَّر على الخادم لمحركات البحث. مسارات مثل /abc-group/fashion.",
+"Next.js admin and POS":"لوحة تحكم ونقطة بيع Next.js","Every frontend is Next.js. POS is an installable web app; printers and scanners connect through the browser.":"كل الواجهات بـ Next.js. نقطة البيع تطبيق ويب قابل للتثبيت، والطابعات والماسحات تتصل عبر المتصفح.",
+"FastAPI API":"FastAPI API","One modular backend, one package per domain, async REST and OpenAPI. Background jobs on Celery.":"خلفية واحدة معيارية، حزمة لكل مجال، REST غير متزامن وOpenAPI. والمهام الخلفية على Celery.",
+"PostgreSQL":"PostgreSQL","Row-level security per company. Stock locks in the database. PostGIS for distance.":"أمان على مستوى الصف لكل شركة. أقفال المخزون داخل قاعدة البيانات. PostGIS للمسافات.",
+"Search":"البحث","PostgreSQL full-text search with trigram matching and Arabic normalization. No extra engine at launch.":"بحث النص الكامل في PostgreSQL مع مطابقة trigram وتطبيع العربية. لا محرك إضافي عند الإطلاق.",
+"AI gateway":"بوابة الذكاء الاصطناعي","Claude behind a model-neutral layer. Agents call the same API as everyone else.":"Claude خلف طبقة محايدة للنماذج. الوكلاء يستدعون نفس الـ API.",
+"Adapters":"المحوّلات","Payments and couriers plug in through interfaces. Jordan providers chosen after talks.":"الدفع وشركات الشحن تتصل عبر واجهات. مزودو الأردن بعد المفاوضات.",
+"Infrastructure":"البنية التحتية","Docker Compose, NGINX as the only reverse proxy, GitHub Actions and Sentry. A cloud region near Jordan.":"Docker Compose وNGINX كبوابة وحيدة وGitHub Actions وSentry. منطقة سحابية قريبة من الأردن.",
+"Start as one. Split later.":"نبدأ موحّدين ونفصل لاحقاً.",
+"A monorepo and a modular monolith first. Microservices only where the load or the team asks for them.":"مستودع واحد وتطبيق معياري أولاً. والخدمات المصغرة فقط حيث يتطلب الحمل أو الفريق.",
+"Clients":"العملاء","Storefront and marketplace":"المتاجر والسوق","Admin dashboard":"لوحة التحكم","POS web app":"نقطة البيع (ويب)","Mobile app, later":"تطبيق موبايل لاحقاً",
+"One API, many modules":"API واحد، وحدات متعددة","Company and shop":"الشركة والمتجر","Catalog":"الكتالوج","Inventory":"المخزون","Orders":"الطلبات","Payments and ledger":"المدفوعات والدفتر","Shipping":"الشحن","Subscriptions":"الاشتراكات","Ads":"الإعلانات","Notifications":"الإشعارات","Analytics":"التحليلات",
+"Workers":"العمال","Celery, same code, separate process: jobs, webhooks, emails, AI tasks":"Celery: نفس الكود وعملية منفصلة: مهام وwebhooks وبريد ومهام ذكاء اصطناعي",
+"Data":"البيانات","Search (PostgreSQL)":"البحث (PostgreSQL)","File storage and CDN":"تخزين الملفات وCDN",
+"Split out first, when needed":"يُفصل أولاً عند الحاجة","Media processing":"معالجة الوسائط",
+"Checkout, stock reservation and the ledger need strict transactions. Splitting them across services on day one would cost months of plumbing for no gain. Modules talk through interfaces and events, never each other's tables. Every row carries a company id. Money moves only through the ledger.":"الدفع وحجز المخزون والدفتر تحتاج معاملات صارمة. فصلها من اليوم الأول يكلّف شهوراً بلا فائدة. الوحدات تتخاطب عبر واجهات وأحداث، لا عبر جداول بعضها. كل صف يحمل معرّف الشركة. والمال يتحرك عبر الدفتر فقط.",
+"The plan, in eight steps.":"الخطة في ثماني خطوات.",
+"Setup":"الإعداد","Decisions, repo, CI, schema":"قرارات ومستودع وCI ومخطط",
+"Foundation":"الأساس","Auth, tenancy, shops, roles, languages":"مصادقة وعزل الشركات ومتاجر وأدوار ولغات",
+"Commerce":"التجارة","Catalog, storefront, checkout, COD":"كتالوج ومتجر وإتمام الشراء والدفع عند الاستلام",
+"Operations":"العمليات","Inventory, shipping, POS":"مخزون وشحن ونقطة بيع",
+"Finance":"المالية","Ledger, settlement, billing":"دفتر وتسوية وفوترة",
+"Growth":"النمو","Search, ads, notifications, analytics":"بحث وإعلانات وإشعارات وتحليلات",
+"Intelligence":"الذكاء","Agents, chat, ad maker":"وكلاء ومحادثة وصانع إعلانات",
+"Launch":"الإطلاق","Hardening, Jordan go-live":"تقوية وإطلاق في الأردن",
+"The first sellable version arrives after the first four steps.":"أول نسخة قابلة للبيع تصل بعد أول أربع خطوات.",
+"Decided, and still open.":"ما تم حسمه وما بقي مفتوحاً.",
+"Who pays for a subscription?":"من يدفع الاشتراك؟",
+"<b>Decided: the company.</b> One subscription per company. The plan sets how many shops it can publish. Creating a company stays free.":"<b>تم القرار: الشركة.</b> اشتراك واحد لكل شركة. الباقة تحدد عدد المتاجر التي يمكن نشرها. وإنشاء الشركة مجاني.",
+"Is a product copied for every shop?":"هل يُنسخ المنتج لكل متجر؟",
+"<b>Decided: no, it is shared.</b> A product is defined once per company. Each shop has its own listing with its own price, status and marketplace visibility.":"<b>تم القرار: لا، بل مشترك.</b> يُعرَّف المنتج مرة واحدة لكل شركة. ولكل متجر قائمته بسعرها وحالتها وظهورها في السوق.",
+"<b>Decided: both.</b> A plan per company, a commission on marketplace orders, a low flat fee on storefront orders, and ads sold separately. The numbers are still open.":"<b>تم القرار: الاثنان.</b> باقة لكل شركة، وعمولة على طلبات السوق، ورسم ثابت منخفض على طلبات المتجر، وإعلانات تُباع على حدة. الأرقام ما زالت مفتوحة.",
+"Which stack?":"ما التقنيات؟",
+"<b>Decided: FastAPI and Next.js.</b> FastAPI runs the API and background jobs (Celery). Next.js runs every frontend: storefronts, admin and POS. The API schema generates the frontend client so the two stay in sync.":"<b>تم القرار: FastAPI وNext.js.</b> FastAPI يشغّل الـ API والمهام الخلفية (Celery). وNext.js يشغّل كل الواجهات: المتاجر ولوحة التحكم ونقطة البيع. ومخطط الـ API يولّد عميل الواجهة ليبقيا متزامنين.",
+"Is cash on delivery supported?":"هل الدفع عند الاستلام مدعوم؟",
+"<b>Yes.</b> For storefront and marketplace orders. New order states: awaiting delivery, cash collected, delivery failed or refused.":"<b>نعم.</b> لطلبات المتجر والسوق. حالات طلب جديدة: بانتظار التسليم، تم تحصيل النقد، فشل التسليم أو رُفض.",
+"Who receives the cash from the courier: open":"من يستلم النقد من المندوب: مفتوح","Remittance timing and failed-delivery fees: open":"موعد التوريد ورسوم التسليم الفاشل: مفتوح","Order limits and phone confirmation: to confirm":"حدود الطلب وتأكيد الهاتف: للتأكيد",
+"What address does a shop get?":"ما عنوان المتجر؟",
+"waqoor.com/company-name/shop-name, for example waqoor.com/abc-group/fashion. Every shop stays under the main domain.":"waqoor.com/اسم-الشركة/اسم-المتجر، مثل waqoor.com/abc-group/fashion. كل المتاجر تحت النطاق الرئيسي.",
+"What is not included yet?":"ما غير المشمول بعد؟",
+"B2B and wholesale":"B2B والجملة","Offline POS":"نقطة بيع بدون إنترنت",
+"Social and ad-platform publishing is now in, with approval and a spend cap.":"النشر على التواصل ومنصات الإعلان أصبح مشمولاً، بموافقة وسقف إنفاق.",
+"What still needs a decision?":"ما الذي يحتاج قراراً؟",
+"Plan names, prices, shop limits and commission percentages":"أسماء الباقات وأسعارها وحدود المتاجر ونسب العمولة","Order fee and marketplace commission":"رسم الطلب وعمولة السوق","Settlement schedule, returns policy, payout methods":"جدول التسوية وسياسة الإرجاع وطرق الدفع للتجار","Database schema, tenant isolation":"مخطط قاعدة البيانات وعزل الشركات","Payment provider and shipping integrations for Jordan":"مزود الدفع وتكاملات الشحن في الأردن","AI providers and how much the agents may do alone":"مزودو الذكاء الاصطناعي وما يحق للوكلاء فعله بمفردهم",
+"All 33 business rules":"كل قواعد العمل الـ33",
+"Next: pick the stack and draw the database. Full document inside.":"التالي: رسم قاعدة البيانات. الوثيقة الكاملة بالداخل.",
+"Build":"ابنِ",
+"Jordan first. Built to open any country by configuration, not by rewriting.":"الأردن أولاً. مصمم لفتح أي دولة بالإعداد لا بإعادة الكتابة.",
+"Product Blueprint, version 1.3":"مخطط المنتج، الإصدار 1.3","Back to the top":"العودة للأعلى",
+"A company may own multiple shops.":"يمكن للشركة امتلاك عدة متاجر.","Shops can sit in different categories.":"يمكن للمتاجر أن تكون في فئات مختلفة.","Shops inherit company branding or use their own.":"ترث المتاجر هوية الشركة أو تستخدم هويتها.","All shop URLs stay under the WAQOOR domain.":"كل روابط المتاجر تحت نطاق WAQOOR.","Creating a company is free.":"إنشاء الشركة مجاني.","Publishing a shop needs a paid plan.":"نشر المتجر يحتاج باقة مدفوعة.","Revenue is subscriptions plus order fees.":"الإيراد اشتراكات ورسوم طلبات.","Marketplace and storefronts coexist.":"السوق والمتاجر يتعايشان.","Marketplace visibility is configurable.":"الظهور في السوق قابل للضبط.","Guest checkout is supported.":"الشراء كضيف مدعوم.","B2B is out of scope.":"B2B خارج النطاق.","Inventory is shared or independent.":"المخزون مشترك أو مستقل.","POS is a core module.":"نقطة البيع وحدة أساسية.","POS needs an internet connection.":"نقطة البيع تحتاج إنترنت.","Shipping providers must be approved.":"يجب اعتماد مزودي الشحن.","Each country can have a default provider.":"لكل دولة مزود افتراضي.","Companies can change their shipping setup.":"يمكن للشركات تغيير إعداد الشحن.","COD is supported for online orders.":"الدفع عند الاستلام مدعوم للطلبات الإلكترونية.","Subscriptions are paid to WAQOOR directly.":"الاشتراكات تُدفع لـ WAQOOR مباشرة.","Marketplace payments are collected centrally.":"مدفوعات السوق تُحصَّل مركزياً.","Settlements respect returns and refunds.":"التسويات تراعي المرتجعات والاستردادات.","Countries are fully configurable.":"الدول قابلة للضبط بالكامل.","Jordan launches first.":"الأردن يُطلق أولاً.","The AI Ad Creator makes creatives.":"صانع إعلانات الذكاء الاصطناعي ينتج المواد الإبداعية.","Social and ad-platform publishing needs approval.":"النشر على التواصل ومنصات الإعلان يحتاج موافقة.","AI agents use authorised services only.":"وكلاء الذكاء الاصطناعي يستخدمون خدمات مصرّحاً بها فقط.","Subscriptions are per company.":"الاشتراكات لكل شركة.","Products are shared, listed per shop.":"المنتجات مشتركة وتُدرج لكل متجر.","Arabic and English only.":"العربية والإنجليزية فقط.","Paid placement is always labeled Sponsored.":"الموضع المدفوع يُوسم دائماً «ممول».","AI never pays without the user confirming.":"الذكاء الاصطناعي لا يدفع دون تأكيد المستخدم.","Ad campaigns need a spend cap.":"حملات الإعلان تحتاج سقف إنفاق.","Tracking needs the user's consent.":"التتبع يحتاج موافقة المستخدم."
+};
+var root=document.documentElement,btn=document.getElementById('lang'),nodes=[];
+document.body.querySelectorAll('h2,h3,p,li,summary,span,strong,a,b').forEach(function(el){
+  if(el.closest('svg'))return;
+  var k=el.innerHTML.trim();
+  if(AR[k]!==undefined){
+    var par=el.parentElement&&el.parentElement.closest('[data-tr]');
+    if(par)return;
+    el.setAttribute('data-tr','1');nodes.push([el,k,AR[k]]);
+  }
+});
+var sw=[];document.querySelectorAll('.band').forEach(function(b){var s=b.querySelector('.s');if(s)sw.push([b.querySelector('.sw'),s])});
+function apply(ar){
+  nodes.forEach(function(n){n[0].innerHTML=ar?n[2]:n[1]});
+  sw.forEach(function(x){x[0].setAttribute('aria-label',x[1].textContent)});
+  root.lang=ar?'ar':'en';root.dir=ar?'rtl':'ltr';
+  btn.textContent=ar?'English':'العربية';btn.lang=ar?'en':'ar';
+  btn.setAttribute('aria-label',ar?'Switch language to English':'التبديل إلى العربية');
+  document.title=ar?'WAQOOR — مخطط المنتج':'WAQOOR — Product Blueprint';
+  try{localStorage.setItem('waqoor-lang',ar?'ar':'en')}catch(e){}
+}
+btn.addEventListener('click',function(){apply(root.lang!=='ar')});
+window.__untranslated=function(){var u=[];document.body.querySelectorAll('h2,h3,p,li,summary,span,strong,b,a').forEach(function(el){if(el.closest('svg')||el.closest('[data-tr]')||el.id==='lang')return;if(el.children.length===0&&/[A-Za-z]/.test(el.textContent))u.push(el.textContent.trim())});return u};
+var saved=null;try{saved=localStorage.getItem('waqoor-lang')}catch(e){}
+if(saved==='ar')apply(true);
+})();
+</script>
+</body>
+</html>
